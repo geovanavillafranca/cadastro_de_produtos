@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>593</width>
-    <height>578</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,6 +33,25 @@
     </property>
     <property name="text">
      <string>Lista de Produtos</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>61</y>
+      <width>561</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(99, 83, 127);
+background-color: rgb(123, 83, 127);</string>
     </property>
    </widget>
   </widget>

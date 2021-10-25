@@ -24,13 +24,13 @@ def funcao_principal():
         categoria = 'Informcatica'
         print(f'Categoria Informática foi selecionado')
 
-    elif formulario.radioButton.isChecked():
+    elif formulario.radioButton_2.isChecked():
         categoria = 'Alimentos'
-        print(f'Categoria Eletronicos foi selecionado')
+        print(f'Categoria Alimentos foi selecionado')
     
     else:
         categoria = 'Eletronicos'
-        print(f'Categoria Alimentos foi selecionado')
+        print(f'Categoria Eletronicos foi selecionado')
 
     print(f'Código: {linha_codigo}')
     print(f'Descrição: {linha_descricao}')
@@ -49,9 +49,25 @@ def funcao_principal():
     formulario.lineEdit_3.setText("")
 
 
-
 def chama_tela_lista():
+    # abre a tela
     tela_listagem.show()
+
+    # vamos executar o código dentro do banco
+    cursor = banco.cursor()
+    cursor.execute("SELECT * FROM produtos")
+    # pega o que foi executado no execute
+    dados_lidos = cursor.fetchall()
+
+    # definindo as colunas
+    tela_listagem.tableWidget.setRowCount(len(dados_lidos))
+    tela_listagem.tableWidget.setColumnCount(5)
+
+    # mostrando na tabela
+    for r in range(0, len(dados_lidos)):
+        for c in range(0, 5):
+            tela_listagem.tableWidget.setItem(r, c, QtWidgets.QTableWidgetItem(str(dados_lidos[r][c])))
+
 
 
 app = QtWidgets.QApplication([])
