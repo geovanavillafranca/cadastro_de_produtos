@@ -1,8 +1,9 @@
 # uic le os elementos na tela, e o QtWidgets monta os elementos na tela
 from PyQt5 import uic, QtWidgets
 import mysql.connector
+from reportlab.pdfgen import canvas
 
-# conectando ao banco
+# --- conectando ao banco --- #
 banco = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -11,7 +12,45 @@ banco = mysql.connector.connect(
     )
 
 
-# funcoes
+# --- metodos --- #
+
+def gerar_pdf():
+    cursor = banco.cursor()
+    comandoSQL = "SELECT * FROM produtos"
+    cursor.execute(comandoSQL)
+    dados_lidos = cursor.fetchall()
+
+    # cordenada para escrever no PDF
+    y = 0
+
+    # iniciando o PDF
+    pdf = canvas.Canvas("cadastro_produtos.pdf")
+    pdf.setFont("Times-Bold", 25)
+    # posicao       x    y
+    pdf.drawString(200, 800, "Produtos cadastrados:")
+    pdf.setFont("Times-Bold", 18)
+
+    # descricao das colunas
+    pdf.drawString(10, 750, "ID")
+    pdf.drawString(110, 750, "CODIGO")
+    pdf.drawString(210, 750, "PRODUTO")
+    pdf.drawString(310, 750, "PRECO")
+    pdf.drawString(410, 750, "CATEGORIA")
+
+    # o Y é para escrever os dados e ir pulando uma linha toda vez que voltar no for
+    for i in range(0, len(dados_lidos)):
+        y += 50
+        pdf.drawString(10, 750 - y, str(dados_lidos[i][0]))
+        pdf.drawString(110, 750 - y, str(dados_lidos[i][1]))
+        pdf.drawString(210, 750 - y, str(dados_lidos[i][2]))
+        pdf.drawString(310, 750 - y, str(dados_lidos[i][3]))
+        pdf.drawString(410, 750 - y, str(dados_lidos[i][4]))
+
+    pdf.save()
+    print("PDF FOI GERADO COM SUCESSO")
+
+
+
 
 def funcao_principal():
     linha_codigo = formulario.lineEdit.text()
@@ -75,11 +114,11 @@ app = QtWidgets.QApplication([])
 formulario = uic.loadUi("cadastro_produtos.ui")
 formulario.pushButton.clicked.connect(funcao_principal)
 formulario.show()
-
-# tela de listagem
-tela_listagem = uic.loadUi("listar_dados.ui")
 # chamando o botao listar
 formulario.pushButton_2.clicked.connect(chama_tela_lista)
 
+# tela de listagem
+tela_listagem = uic.loadUi("listar_dados.ui")
+tela_listagem.pushButton.clicked.connect(gerar_pdf)
 app.exec()
 
