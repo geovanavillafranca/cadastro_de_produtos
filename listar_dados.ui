@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>573</width>
-    <height>672</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -120,7 +120,7 @@ background-color: rgb(123, 83, 127);</string>
      <rect>
       <x>20</x>
       <y>590</y>
-      <width>101</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
@@ -136,6 +136,29 @@ background-color: rgb(123, 83, 127);</string>
     </property>
     <property name="text">
      <string>PDF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>590</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>EXCLUIR</string>
     </property>
    </widget>
   </widget>

@@ -14,6 +14,27 @@ banco = mysql.connector.connect(
 
 # --- metodos --- #
 
+
+def excluir_dados():
+    # ele pega a linha que o usuário clicou
+    linha = tela_listagem.tableWidget.currentRow()
+    # exclui a linha pelo valor passado, mas nao do banco
+    tela_listagem.tableWidget.removeRow(linha)
+
+    # excluir no banco
+    cursor = banco.cursor()
+    comandoSQL = "SELECT id FROM produtos"
+    cursor.execute(comandoSQL)
+    dados_lidos = cursor.fetchall()
+
+    # vai pegar o que o usuario selecionou e e retornar o seu id
+    valor_id = dados_lidos[linha][0]
+    # comando para excluir
+    cursor.execute("DELETE FROM produtos WHERE id=" + str(valor_id))
+    # para excluir do banco precisa do commit
+    banco.commit()
+
+
 def gerar_pdf():
     cursor = banco.cursor()
     comandoSQL = "SELECT * FROM produtos"
@@ -120,5 +141,7 @@ formulario.pushButton_2.clicked.connect(chama_tela_lista)
 # tela de listagem
 tela_listagem = uic.loadUi("listar_dados.ui")
 tela_listagem.pushButton.clicked.connect(gerar_pdf)
+tela_listagem.pushButton_2.clicked.connect(excluir_dados)
+
 app.exec()
 
